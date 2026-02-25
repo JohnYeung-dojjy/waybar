@@ -1,31 +1,111 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": [
+    "hyprland/workspaces",
+    "tray"
+],
 
-  "modules-center": ["clock", "custom/weather"],
+  "modules-center": [
+    "clock"
+    // "custom/weather"
+],
 
   "modules-right": [
     "pulseaudio",
-    "custom/uptime",
-    "backlight",
+    // "custom/uptime",
+    // "backlight",
     "battery",
     "network",
     "cpu",
     "memory",
-    "custom/docker",
-    "tray",
+    "temperature",
+    // "custom/docker",
     "custom/lock",
     "custom/power"
   ],
-
   "hyprland/workspaces": {
-    "format": "{name}: {icon}",
-    "format-icons": {
-      "active": "",
-      "default": ""
-    }
-  },
+      "on-click": "activate",
+      "format": "{icon} {windows}",
+      "format-window-separator": " ",
+      "window-rewrite-default": "",
+      "window-rewrite": {
+        "title<.*youtube.*>": " ",
+        "title<.*whatsapp.*>": "",
+        "class<wechat>": "",
+        "title<.*messenger.*>": "",
+        "title<.*facebook.*>": "",
+        "title<.*figma.*>": "",
+        "title<.*discord.*>": " ",
+        "title<.*jira.*>": "",
+        "title<.*ChatGPT.*>": "🤖",
+        "title<.*deepseek.*>": "🤖",
+        "title<.*AI.*>": "🤖",
+        "title<.*qwen.*>": "🤖",
+        "class<firefox-developer-edition>": "🦊",
+        "class<firefox>": "",
+        "class<Postman>": "",
+        "title<.*github.*>": "",
+        "class<nemo>": "",
+        "title<.*dolphin.*>": "",
+        "class<com.mitchellh.ghostty>": " ",
+        "title<.*kitty.*>": " ",
+        "class<org.wezfurlong.wezterm>": " ",
+        "class<code>": "󰨞 ",
+        "title<.*nvim ~.*>": " ",
+        "title<.*vim.*>": " ",
+        "title<.*nvim.*>": " ",
+        "title<.*cmus.*>": " ",
+        "class<spotify>": " ",
+        "class<chrome>": "",
+        "class<brave-browser>": "🦁",
+        "class<brave>": "🦁",
+        "class<vivaldi-stable>": " ",
+        "class<slack>": " ",
+        "class<vlc>": "󰕼",
+        // "class<vlc>": "🎬󰕼",
+        "class<libreoffice-writer>": "",
+        "class<libreoffice-calc>": "",
+        // "class<gimp>": " 🎨",
+        "class<gimp>": "",
+        "class<thunderbird>": "",
+        "title<.*gmail.*>": "󰊫",
+        "class<telegram-desktop>": "",
+        "class<remmina>": "🖥️",
+        "class<virt-manager>": "",
+        "class<obs>": "📹",
+        "class<jetbrains-idea>": "",
+        "class<microsoft-edge>": "",
+        "class<emulator>": "📱",
+        "class<virtualbox manager>": "",
+        "title<virtualbox>": "💽",
+        "class<android-studio>": "",
+        "class<steam>": "",
+        "class<tor browser>": ""
+      },
+      // "persistent-workspaces": {
+      //     "*": [10] // 1 workspaces by default on every monitor
+      //     // "HDMI-A-1": 3 // but only three on HDMI-A-1
+      // },
+      "on-scroll-up": "hyprctl dispatch workspace m-1 > /dev/null",
+      "on-scroll-down": "hyprctl dispatch workspace m+1 > /dev/null",
+      "format-icons": {
+        // "1": "1",
+        // "2": "2",
+        // "3": "3",
+        // "4": "4",
+        // "5": "5",
+        // "6": "6",
+        // "7": "7",
+        // "8": "8",
+        // "9": "9",
+        // "10": "10",
+        "special": "🎁",
+        // "urgent": "",
+        "persistent": ""
+        // "default": " ",
+      }
+    },
 
   "tray": {
     "icon-size": 16,
@@ -43,16 +123,47 @@
   },
 
   "clock": {
-    "timezone": "America/Fortaleza",
+    "timezone": "Canada/Pacific",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format": "{:%d/%m/%Y - %H:%M:%S}",
+    "calendar": {
+        "mode"          : "month",
+        "mode-mon-col"  : 3,
+        "weeks-pos"     : "right",
+        "on-scroll"     : 1,
+        "format": {
+            "months":     "<span color='#ffead3'><b>{}</b></span>",
+            "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+            "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+            "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+            "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+        }
+    },
     "interval": 1
+  },
+
+  "battery": {
+    // "bat": "BAT2",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "events": {
+      "on-discharging-warning": "notify-send -u normal 'Low Battery'",
+      "on-discharging-critical": "notify-send -u critical 'Very Low Battery'",
+      // "on-charging-100": "notify-send -u normal 'Battery Full!'"
+    },
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25
   },
 
   "network": {
     "format-wifi": "󰤢 {bandwidthDownBits}",
     "format-ethernet": "󰈀 {bandwidthDownBits}",
     "format-disconnected": "󰤠 No Network",
+    "on-click": "iwdgui",
     "interval": 5,
     "tooltip": false
   },
@@ -66,6 +177,12 @@
   "memory": {
     "interval": 30,
     "format": "  {used:0.1f}G/{total:0.1f}G"
+  },
+
+  "temperature": {
+    "hwmon-path": "/sys/class/hwmon/hwmon6/temp5_input",
+    "critical-threshold": 80,
+    "format": "🌡️ {temperatureC}°C"
   },
 
   "custom/uptime": {
