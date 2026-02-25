@@ -1,6 +1,6 @@
 * {
   font-family: JetbrainsMono Nerd Font;
-  font-size: 10px;
+  font-size: 12px;
   min-height: 0;
   padding-right: 2px;
   padding-left: 2px;
@@ -74,13 +74,32 @@ button {
   color: #a6d189;
 }
 
-#battery.charging {
+#battery.charging,
+#battery.warning.charging,
+#battery.critical.charging {
   color: #a6d189;
 }
 
 #battery.warning:not(.charging) {
-  color: #e78284;
+  color: orange;
+  animation: battery-warning-flash 2s infinite;
 }
+@keyframes battery-warning-flash {
+  0% { background: black; }
+  25% { background: orange; }
+  100% { background: black; }
+}
+
+#battery.critical:not(.charging) {
+  color: red;
+  animation: battery-critical-flash 1s infinite;
+}
+@keyframes battery-critical-flash {
+  0% { background: black; }
+  25% { background: red; }
+  100% { background: black; }
+}
+
 
 #backlight {
   color: #e5c890;
