@@ -164,7 +164,7 @@
     "format-wifi": "󰤢 {bandwidthDownBits}",
     "format-ethernet": "󰈀 {bandwidthDownBits}",
     "format-disconnected": "󰤠 No Network",
-    "on-click": "iwdgui",
+    "on-click": "iwgtk",
     "interval": 5,
     "tooltip": false
   },
